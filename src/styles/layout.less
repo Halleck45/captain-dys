@@ -1,0 +1,93 @@
+@media print {
+  body {
+    background: #FFF;
+  }
+
+  .page {
+    width: 100%;
+    margin: 0;
+  }
+
+  .ql-toolbar, header, .sidebar {
+    display: none;
+  }
+}
+
+
+html {
+  height: 100%;
+}
+
+body {
+@apply bg-white;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: "OpenDyslexicRegular", sans-serif !important;
+}
+
+.header {
+@apply container mx-auto py-4 px-4 bg-white;
+  height: 90px;
+
+  .burger-link {
+    float: right;
+    @apply block  md:hidden cursor-pointer;
+  }
+}
+
+
+.logo {
+  img {
+    float: left;
+    margin-right: 15px;
+  }
+
+  .logo-text {
+    line-height: 58px;
+    font-size: 1.5em;
+    font-weight: 700;
+  @apply text-blue-500;
+  }
+
+}
+
+
+.sidebar {
+  position: fixed;
+  height: 100%;
+  @apply hidden md:block flex flex-col w-64 h-screen bg-white  bg-blue-500 text-blue-100 rounded-r-lg;
+
+  .sidebar-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  @apply py-8;
+  }
+
+  .sidebar-btn {
+  @apply font-medium cursor-pointer block  px-4 pl-8 py-4 mt-4;
+
+    &:hover {
+      @apply bg-blue-100 text-blue-500;
+    }
+
+    svg {
+      /* material icons */
+      display: inline-block;
+      fill: currentColor;
+      margin-right: 5px;
+    }
+  }
+}
+.sidebar-outer {
+  @apply hidden bg-black fixed inset-0 w-full opacity-30;
+}
+
+
+.page {
+  @apply md:pl-64
+}
+
+
+
