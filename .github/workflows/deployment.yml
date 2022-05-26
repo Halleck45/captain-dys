@@ -23,7 +23,7 @@ jobs:
 
     - name: Build
       run: |
-        npm install
+        yarn install
         npm run build
     
     - name: Deploy
