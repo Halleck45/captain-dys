@@ -1,6 +1,6 @@
 # Captain Dys
 
-[http://captaindys.com/](http://captaindys.com/). A web editor for (french for the moment) dyslexic child.
+[captaindys.com](https://captaindys.com/). A web editor for (french for the moment) dyslexic child.
 
 ![preview](./docs/preview.png)
 
