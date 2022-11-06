@@ -8,7 +8,7 @@
 
 ```bash
 yarn install
-npm run build
+yarn build
 ```
 
 ## Contributing
@@ -17,8 +17,16 @@ In order to work locally, run:
 
 ```bash
 yarn install
-npm run serve --mode=development
+yarn serve --mode=development
 ```
+
+Remember to run [Jest tests](https://jestjs.io/) with:
+
+```bash
+yarn install
+yarn test
+```
+
 
 ## Author
 
