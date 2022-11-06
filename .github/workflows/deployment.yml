@@ -3,8 +3,6 @@ name: Website Deployment
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 permissions: 
   contents: write
@@ -21,10 +19,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install
+      run: yarn install
+
+    - name: Tests
+      run: yarn test
+
     - name: Build
-      run: |
-        yarn install
-        npm run build
+      run: yarn build
     
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.3.3
