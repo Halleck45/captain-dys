@@ -6,6 +6,7 @@ import editor from './editor'
 import text2speech from './text2speech';
 import Layout from './layout';
 import Syllaber from "./syllaber";
+import speech2ext from "./speech2ext";
 
 let loader;
 
@@ -24,6 +25,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Initializing
     editor.init("#editor", '#toolbar-container');
     text2speech.init('.btn-editor-speak', editor);
+    speech2ext.init(
+        document.getElementById('btn-editor-listen'),
+        editor
+    );
 
     // Layout
     const layt = new Layout;
