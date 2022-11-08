@@ -1,6 +1,6 @@
 "use strict";
 
-var speech2ext = {
+const speech2ext = {
     recognizing: false,
     /**
      * @type {webkitSpeechRecognition}
@@ -16,14 +16,16 @@ var speech2ext = {
             return;
         }
 
-        var logo_mic = selector.querySelector('#logo-mic');
+        const logo_mic = selector.querySelector('#logo-mic');
 
         /**
          * @type {HTMLTemplateElement | null}
          */
-        var bi_mic_fill = selector.querySelector('#bi-mic-fill');
-
-        logo_mic?.appendChild(bi_mic_fill?.content.cloneNode(true));
+        const bi_mic_fill = selector.querySelector('#bi-mic-fill');
+        if(logo_mic) {
+            logo_mic.innerHTML = '';
+            logo_mic?.appendChild(bi_mic_fill?.content.cloneNode(true));
+        }
 
         selector.addEventListener('click', function () {
             console.log('CLICK');
@@ -42,8 +44,8 @@ var speech2ext = {
             speech2ext.recognition.onresult = function (event) {
                 speech2ext.recognizing = true;
                 console.log('RESULT', event);
-                var interim_transcript = '';
-                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                const interim_transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
                     if (event.results[i].isFinal) {
                         editor.setText(
                             `${editor.getAllText()} ${event.results[i][0].transcript}`
