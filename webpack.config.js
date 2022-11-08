@@ -12,7 +12,8 @@ if (typeof (process.env.NODE_ENV) != 'undefined') {
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'main.js',
+    filename: 'main.js?t=' + new Date().getTime(),
+    chunkFilename: '[name]-chunk.js?t=' + new Date().getTime(),
     path: path.resolve(__dirname, 'public'),
   },
   module: {
