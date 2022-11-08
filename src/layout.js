@@ -2,6 +2,7 @@ import locales from './locales/locales';
 import application from './application';
 import printer from './printer';
 import sidebar from './sidebar';
+import JSConfetti from 'js-confetti'
 
 class Layout {
   init(locale) {
@@ -58,6 +59,18 @@ class Layout {
     document.querySelectorAll('.btn-editor-print').forEach(e => {
       e.removeEventListener('click', printer.print);
       e.addEventListener('click', printer.print);
+    });
+    document.querySelectorAll('[data-role="logo"]').forEach(e => {
+      // avoid multiple event listeners
+      // store flag into data-binded
+      if (e.dataset.binded) {
+          return;
+      }
+      e.dataset.binded = true;
+      e.addEventListener('click', () => {
+        const jsConfetti = new JSConfetti()
+        jsConfetti.addConfetti()
+      });
     });
   }
 }
