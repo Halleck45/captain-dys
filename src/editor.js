@@ -1,22 +1,30 @@
 import Quill from 'quill';
+import locales from './locales/locales';
 
-var editor = {
+const editor = {
   quill: null,
   colorsAreEnabled: true,
-  init: (selector, toolbarSelector) => {
+  translations: {},
+  init: (selector, toolbarSelector, locale) => {
+
+    if (typeof locale === 'undefined' || !locales.has(locale)) {
+        locale = locales.default();
+    }
+    editor.translations = locales.get(locale);
 
     // icons
-    var icons = Quill.import('ui/icons');
-    icons['bold'] = '<b>Gras</b>';
-    icons['italic'] = '<em>Italique</em>';
-    icons['underline'] = '<u>Souligné</u>';
-    icons['strike'] = '<strike>Barré</strike>';
-    icons['list'] = '• Liste';
+    const icons = Quill.import('ui/icons');
+    icons['bold'] = `<b>${editor.translations.toolbar.bold}</b>`;
+    icons['italic'] = `<b>${editor.translations.toolbar.italic}</b>`;
+    icons['underline'] = `<b>${editor.translations.toolbar.underline}</b>`;
+    icons['strike'] = `<b>${editor.translations.toolbar.strike}</b>`;
+    icons['list'] = `<b>${editor.translations.toolbar.list}</b>`;
     icons['image'] = `
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" ><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
     `;
 
-    var quill = editor.quill = new Quill(selector, {
+    // Initialize WYSIWYG editor
+    const quill = editor.quill = new Quill(selector, {
       theme: 'snow',
       modules: {
         toolbar: toolbarSelector,
@@ -25,9 +33,12 @@ var editor = {
     });
 
     quill.root.setAttribute('spellcheck', false);
-
-
     quill.focus();
+
+    if (quill.getLength() === 1) {
+      // If is blank, add a Welcome message
+      quill.insertText(0, editor.translations.editor.welcome);
+    }
 
     quill.on('text-change', function (delta, oldDelta, source) {
       if (source != 'user') {
@@ -50,38 +61,8 @@ var editor = {
       return;
     }
 
-    const toColor = [
-      // muet
-      {regex: "(t)['-\\s+\\.,;\!\?]", color: '#CCC'}, // end t
-      {regex: "(?:[nm])([nm])", color: '#CCC'}, // double n/m
-      {regex: "(?:p)(p)", color: '#CCC'}, // double n/m
-      {regex: "(?:l)(l)", color: '#CCC'}, // double ll
-      {regex: "(?:(?<!ou))(s)['-\\s+\\.,;\!\?]", color: '#CCC'}, // end s
-
-      // sounds
-      {regex: "(a[nm])(?![aeiyounm])", color: '#60A5FA'}, // an not followed by vowel or n/m
-      {regex: "(e[nm])(?![aeiyounm])", color: '#60A5FA'}, // en not followed by vowel or n/m
-      {regex: "(ai)(?:(?![nm])|([nm][aeiyou]))", color: '#059669'}, // ai not followed by n,m, or followed by n,m but without vowel after
-      {regex: "(ai[nm]?)(?![aeiyou])", color: '#DB2777'}, // ain / aim not followed by vowel
-      {regex: "(ou)", color: '#D97706'}, // ou
-      {regex: "(oi)", color: '#60A5FA'}, // ou
-      {regex: "(ion)[\\s+\\.,;\!\?]", color: '#A78BFA'}, // ion
-      {regex: "(gn)", color: '#3B82F6'}, // gn
-      {regex: "(?:(?<!i))(on)", color: '#10B981'}, // on not previoused by vowel
-      {regex: "ch", color: '#3B82F6'}, // ch
-      {regex: "eu", color: '#3B82F6'}, // eu
-      {regex: "(?:q)(u)", color: '#CCC'}, // qu (fix bug)
-      {regex: "(?:g)(u)", color: '#CCC'}, // qu (fix bug)
-      {regex: "(un)(?![aeiyounm])", color: '#F59E0B'}, // un not followed by vowel
-      {regex: "(un[aeiyounm])", color: '#10B981'}, // un +  vowel
-      {regex: "(œu)", color: '#F59E0B'}, //œu
-      {regex: "(ien)['-\\s+\\.,;\!\?]", color: '#F59E0B'}, // ien
-
-      // tool words
-      {regex: "['-\\s+\\.,;\!\?](et|est)['-\\s+\\.,;\!\?]", color: '#A78BFA'}, // et
-      {regex: "['-\\s+\\.,;\!\?](où)['-\\s+\\.,;\!\?]+", color: '#A78BFA'}, // où
-    ];
-
+    // Color of letters
+    const toColor = editor.translations.editor.colors;
 
     let text = quill.getText(); // remember to not trim text from break lines, otherwise positions are false
 

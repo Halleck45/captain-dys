@@ -1,6 +1,6 @@
 # Captain Dys
 
-[captaindys.com](https://captaindys.com/). A web editor for (french for the moment) dyslexic child.
+[captaindys.com](https://captaindys.com/). A web editor for dyslexic child.
 
 ![preview](./docs/preview.png)
 
@@ -27,6 +27,12 @@ yarn install
 yarn test
 ```
 
+## Localization and translations
+
+Do not hesitate to contribute to the project by adding your locale:
+
++ Copy the `src/locales/fr-FR.js` file to `src/locales/xx.json` (where xx is your locale code)
++ Import it in `src/locales/index.js`
 
 ## Author
 

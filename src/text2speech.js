@@ -1,7 +1,7 @@
 import Syllaber from "./syllaber";
 import editor from "./editor";
 
-var text2speech = {
+const text2speech = {
 
     synth: null,
 
@@ -63,7 +63,7 @@ var text2speech = {
         }
 
 
-        var utterThis = new SpeechSynthesisUtterance();
+        const utterThis = new SpeechSynthesisUtterance();
         utterThis.text = whatToSay;
         utterThis.lang = 'fr-FR';
         utterThis.onend = function (event) {
