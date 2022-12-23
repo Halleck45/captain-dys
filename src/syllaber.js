@@ -218,9 +218,8 @@ class Sylabber {
     let result = [];
     for(word of words) {
 
-      if(null != word
-        && isNaN(word)
-        && isNaN(parseFloat(word))
+      if(
+        null != word && isNaN(word)  && isNaN(parseFloat(word))
       ) {
         word = this.splitWord(word).join(delimiter);
       }

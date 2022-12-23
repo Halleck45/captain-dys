@@ -31,7 +31,7 @@ export default {
         );
 
         // Initializing Layout
-        const layt = new Layout;
+        const layt = new Layout();
         layt.init(locale);
     }
-}
+};

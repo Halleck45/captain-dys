@@ -22,4 +22,4 @@ export default {
             // Contributions are welcome ! :)
         ]
     }
-}
+};

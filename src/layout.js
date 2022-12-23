@@ -2,7 +2,7 @@ import locales from './locales/locales';
 import application from './application';
 import printer from './printer';
 import sidebar from './sidebar';
-import JSConfetti from 'js-confetti'
+import JSConfetti from 'js-confetti';
 
 class Layout {
   init(locale) {
@@ -25,6 +25,14 @@ class Layout {
     // Selection of locale
     // data-role="locale-select"
     elements = document.querySelectorAll('[data-role="locale-select"]');
+
+    const changeLang = (event) => {
+      let url = new URL(window.location.href);
+      url.searchParams.set('locale', event.target.value);
+      let newRelativePathQuery = window.location.pathname + '?' + url.searchParams.toString();
+      history.pushState(null, '', newRelativePathQuery);
+      application.init();
+    };
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i];
       element.innerHTML = '';
@@ -39,13 +47,7 @@ class Layout {
       }
 
       // deal with change: set the "locale" parameter in the URL
-      element.addEventListener('change', (event) => {
-        let url = new URL(window.location.href);
-        url.searchParams.set('locale', event.target.value);
-        let newRelativePathQuery = window.location.pathname + '?' + url.searchParams.toString();
-        history.pushState(null, '', newRelativePathQuery);
-        application.init();
-      });
+      element.addEventListener('change', changeLang);
     }
 
     document.querySelectorAll('.burger-link').forEach(e => {
@@ -68,11 +70,11 @@ class Layout {
       }
       e.dataset.binded = true;
       e.addEventListener('click', () => {
-        const jsConfetti = new JSConfetti()
-        jsConfetti.addConfetti()
+        const jsConfetti = new JSConfetti();
+        jsConfetti.addConfetti();
       });
     });
   }
 }
 
-export default Layout
+export default Layout;
