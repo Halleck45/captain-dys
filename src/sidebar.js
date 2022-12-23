@@ -11,4 +11,4 @@ export default {
         sidebar.style.display = 'block';
         sidebarOuter.style.display = 'block';
     }
-}
+};

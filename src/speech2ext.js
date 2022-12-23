@@ -44,7 +44,7 @@ const speech2ext = {
             speech2ext.recognition.onresult = function (event) {
                 speech2ext.recognizing = true;
                 console.log('RESULT', event);
-                const interim_transcript = '';
+                let interim_transcript = '';
                 for (let i = event.resultIndex; i < event.results.length; ++i) {
                     if (event.results[i].isFinal) {
                         editor.setText(
@@ -69,9 +69,7 @@ const speech2ext = {
                     logo_mic.innerHTML = '';
                     logo_mic?.appendChild(selector.querySelector('#bi-mic-fill')?.content.cloneNode(true));
                 }
-
-                console.log('STOP');
-            }
+            };
 
             if (speech2ext.recognition) {
                 console.log('START');
@@ -88,13 +86,11 @@ const speech2ext = {
 
             speech2ext.recognition.onerror = function (event) {
                 console.error('speech2ext', event);
-            }
+            };
 
         });
 
     },
-
-
-}
+};
 
 export default speech2ext;

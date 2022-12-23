@@ -1,5 +1,4 @@
 import Syllaber from "./syllaber";
-import editor from "./editor";
 
 const text2speech = {
 
@@ -8,6 +7,7 @@ const text2speech = {
     init: (selector, editor) => {
 
 
+        /*jshint -W018 */
         if (!'speechSynthesis' in window) {
             console.log('NOT AVAILABLE');
             return;
@@ -25,7 +25,7 @@ const text2speech = {
 
         document.querySelectorAll('.btn-editor-syllabes').forEach(e => {
             e.addEventListener('click', () => {
-                const sylab = new Syllaber;
+                const sylab = new Syllaber();
 
                 editor.setText(
                     sylab.split(editor.getAllText())
@@ -66,10 +66,10 @@ const text2speech = {
         const utterThis = new SpeechSynthesisUtterance();
         utterThis.text = whatToSay;
         utterThis.lang = 'fr-FR';
-        utterThis.onend = function (event) {
+        utterThis.onend = function () {
             console.log('SpeechSynthesisUtterance.onend');
         };
-        utterThis.onerror = function (event) {
+        utterThis.onerror = function () {
             console.error('SpeechSynthesisUtterance.onerror');
         };
 

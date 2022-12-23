@@ -21,7 +21,6 @@ const locales = {
     default: () => {
         return 'fr-FR';
     }
-
-}
+};
 
 export default locales;

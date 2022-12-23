@@ -14,12 +14,12 @@ const editor = {
 
     // icons
     const icons = Quill.import('ui/icons');
-    icons['bold'] = `<b>${editor.translations.toolbar.bold}</b>`;
-    icons['italic'] = `<b>${editor.translations.toolbar.italic}</b>`;
-    icons['underline'] = `<b>${editor.translations.toolbar.underline}</b>`;
-    icons['strike'] = `<b>${editor.translations.toolbar.strike}</b>`;
-    icons['list'] = `<b>${editor.translations.toolbar.list}</b>`;
-    icons['image'] = `
+    icons.bold = `<b>${editor.translations.toolbar.bold}</b>`;
+    icons.italic = `<b>${editor.translations.toolbar.italic}</b>`;
+    icons.underline = `<b>${editor.translations.toolbar.underline}</b>`;
+    icons.strike = `<b>${editor.translations.toolbar.strike}</b>`;
+    icons.list = `<b>${editor.translations.toolbar.list}</b>`;
+    icons.image = `
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" ><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
     `;
 
@@ -40,12 +40,17 @@ const editor = {
       quill.insertText(0, editor.translations.editor.welcome);
     }
 
+
+    // @todo font is removed on paste
+    // https://github.com/quilljs/quill/issues/1184
+
     quill.on('text-change', function (delta, oldDelta, source) {
       if (source != 'user') {
         return;
       }
       editor.applyColors();
     });
+
 
     editor.applyColors();
     editor.dealWithCopyPaste();
@@ -80,12 +85,7 @@ const editor = {
         continue;
       }
 
-      //console.log(pattern, indices, 'text', text);
       for (indice of indices) {
-        let delta = quill.formatText(indice.start, indice.len, {
-          color: pattern.color
-        }, true);
-
         quill.removeFormat(indice.end, 0);
       }
     }
@@ -98,17 +98,17 @@ const editor = {
 
   dealWithCopyPaste: () => {
     editor.quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
-      let ops = []
+      let ops = [];
       delta.ops.forEach(op => {
         if (op.insert && typeof op.insert === 'string') {
           ops.push({
             insert: op.insert
-          })
+          });
         }
-      })
-      delta.ops = ops
-      return delta
-    })
+      });
+      delta.ops = ops;
+      return delta;
+    });
   },
 
   getSelectedText: () => {

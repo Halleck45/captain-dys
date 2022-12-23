@@ -1,0 +1,15 @@
+{
+  "node": true,
+  "esversion": 11,
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "console": true,
+    "window": true,
+    "document": true,
+    "Node": true,
+    "URL": true,
+    "SpeechSynthesisUtterance": true,
+    "history": true
+  }
+}
