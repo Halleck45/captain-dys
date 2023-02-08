@@ -15,6 +15,7 @@ export default {
         "colors": "Colors",
         "spelling": "Spellcheck",
         "contribute": "Contribute",
+        "upload": "Import picture",
     },
     "editor": {
         "welcome": "Hello! Write or paste your text here.",
