@@ -2,6 +2,7 @@ import editor from "./editor";
 import text2speech from "./text2speech";
 import speech2ext from "./speech2ext";
 import Layout from "./layout";
+import Image2Text from "./image2text";
 
 export default {
     init: () => {
@@ -33,5 +34,9 @@ export default {
         // Initializing Layout
         const layt = new Layout;
         layt.init(locale);
+
+        // Initializing image2text
+        const image2text = new Image2Text(editor);
+        image2text.init('#photo', locale);
     }
 }

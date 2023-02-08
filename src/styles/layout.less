@@ -84,6 +84,23 @@ body {
       margin-right: 5px;
     }
   }
+
+  /* ----- upload in sidebar ----- */
+  .btn-editor-upload {
+    overflow: hidden;
+    position: relative;
+    .photo-visible {
+      @apply inline-block w-full h-full cursor-pointer;
+    }
+    .photo-file {
+      font-size: 56px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
 }
 .sidebar-outer {
   @apply hidden bg-black fixed inset-0 w-full opacity-30;
@@ -112,3 +129,4 @@ body {
     @apply text-blue-100 underline;
   }
 }
+

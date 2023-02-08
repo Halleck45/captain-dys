@@ -40,12 +40,17 @@ const editor = {
       quill.insertText(0, editor.translations.editor.welcome);
     }
 
+
+    // @todo font is removed on paste
+    // https://github.com/quilljs/quill/issues/1184
+
     quill.on('text-change', function (delta, oldDelta, source) {
       if (source != 'user') {
         return;
       }
       editor.applyColors();
     });
+
 
     editor.applyColors();
     editor.dealWithCopyPaste();
@@ -80,7 +85,6 @@ const editor = {
         continue;
       }
 
-      //console.log(pattern, indices, 'text', text);
       for (indice of indices) {
         let delta = quill.formatText(indice.start, indice.len, {
           color: pattern.color
@@ -98,17 +102,17 @@ const editor = {
 
   dealWithCopyPaste: () => {
     editor.quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
-      let ops = []
+      let ops = [];
       delta.ops.forEach(op => {
         if (op.insert && typeof op.insert === 'string') {
           ops.push({
             insert: op.insert
-          })
+          });
         }
-      })
-      delta.ops = ops
-      return delta
-    })
+      });
+      delta.ops = ops;
+      return delta;
+    });
   },
 
   getSelectedText: () => {

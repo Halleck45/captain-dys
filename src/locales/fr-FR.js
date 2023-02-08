@@ -15,6 +15,7 @@ export default {
         "colors": "Couleurs",
         "spelling": "Souligner les fautes",
         "contribute": "Aider le projet",
+        "upload": "Importer une photo",
     },
     "editor": {
         "welcome": "Bonjour ! Écris ou colle ton texte ici.",
