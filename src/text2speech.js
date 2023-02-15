@@ -1,4 +1,3 @@
-import Syllaber from "./syllaber";
 import editor from "./editor";
 
 const text2speech = {
@@ -20,17 +19,6 @@ const text2speech = {
         document.querySelectorAll(selector).forEach(e => {
             e.addEventListener('click', () => {
                 text2speech.speak();
-            });
-        });
-
-        document.querySelectorAll('.btn-editor-syllabes').forEach(e => {
-            e.addEventListener('click', () => {
-                const sylab = new Syllaber;
-
-                editor.setText(
-                    sylab.split(editor.getAllText())
-                );
-                editor.applyColors();
             });
         });
 
