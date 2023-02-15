@@ -16,6 +16,8 @@ export default {
         "spelling": "Spellcheck",
         "contribute": "Contribute",
         "upload": "Import picture",
+        "crop": "Crop",
+        "cancel": "Cancel",
     },
     "editor": {
         "welcome": "Hello! Write or paste your text here.",

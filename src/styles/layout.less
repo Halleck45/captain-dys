@@ -130,3 +130,24 @@ body {
   }
 }
 
+
+
+/* ---- progressbar ----- */
+#progressbar {
+  @apply bg-gray-200 rounded-full;
+  height: 10px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+
+  .progress {
+    @apply bg-blue-500 rounded-full;
+    height: 100%;
+    width: 0%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

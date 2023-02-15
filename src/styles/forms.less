@@ -17,3 +17,18 @@ input:checked ~ .toggle-dot {
     @apply ml-3 ;
   }
 }
+
+.btn {
+  @apply py-2 px-2 md:px-4 text-gray-500 rounded ;
+
+  &:hover {
+    @apply text-white bg-blue-400;
+  }
+
+  &.primary {
+    @apply text-white bg-blue-400;
+    &:hover {
+      @apply text-white bg-blue-500;
+    }
+  }
+}
