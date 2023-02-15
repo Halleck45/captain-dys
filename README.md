@@ -4,6 +4,26 @@
 
 ![preview](./docs/preview.png)
 
+## Features
+
+**Implemented:**
+
++ ✅ text editor
++ ✅ colour of phonemes (*french only. Needs for your help*)
++ ✅ image recognition (*image to text*)
++ ✅ text to speech
++ ✅ speech to text
+
+**Needs help for:**
+
++ 💁 colour of phonemes (for other languages)
+
+**Roadmap:**
+
++ 🚧 text simplification (with AI)
+
+
+
 ## Installation
 
 ```bash
