@@ -1,6 +1,8 @@
 import Tesseract from 'tesseract.js';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
+import EXIF from "exif-js";
+
 
 class Image2Text {
 
@@ -77,15 +79,38 @@ class Image2Text {
     handleFileSelect(evt)  {
         const files = evt.target.files; // FileList object
 
+        if(!files.length) {
+            return;
+        }
+
         // put image in #image in order to crop it
         const image = document.getElementById('image');
         image.src = URL.createObjectURL(files[0]);
 
-        // display image
-        const imageContainer = document.getElementById('image-container');
-        imageContainer.style.display = 'block';
+        // Get width and height of image files[0]
+        image.onload = function() {
+            const width = this.width;
+            const height = this.height;
 
-        this.cropper = new Cropper(image, {});
+            // Check orientation in EXIF metadatas of files[0]
+            EXIF.getData(this, () => {
+                const exifInfos = EXIF.getAllTags(this);
+                const orientation = exifInfos.Orientation;
+
+                // should I rotate ?
+                const exifOrientation = orientation === 6 ? 90 : orientation === 8 ? -90 : orientation === 3 ? 180 : 0;
+
+                // if yes, rotate
+                if (exifOrientation) {
+                    this.style.transform = `rotate(${exifOrientation}deg)`;
+                }
+
+                // display image
+                const imageContainer = document.getElementById('image-container');
+                imageContainer.style.display = 'block';
+                this.cropper = new Cropper(image, {});
+            });
+        }
     }
 }
 
