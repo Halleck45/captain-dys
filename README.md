@@ -1,6 +1,6 @@
 # Captain Dys
 
-[captaindys.com](https://captaindys.com/). A web editor for dyslexic child.
+[captaindys.com](https://captaindys.com/). A web editor for dyslexic children (available in French and English).
 
 ![preview](./docs/preview.png)
 
@@ -9,7 +9,7 @@
 **Implemented:**
 
 + ✅ text editor
-+ ✅ colour of phonemes (*french only. Needs for your help*)
++ ✅ colour of phonemes (*French and English supported. Needs your help for other languages*)
 + ✅ image recognition (*image to text*)
 + ✅ text to speech
 + ✅ speech to text
