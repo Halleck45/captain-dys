@@ -152,6 +152,20 @@
       </a>
       <!-- end: print document -->
 
+      <!-- start: share -->
+      <a class="sidebar-btn btn-editor-share">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+        <span data-label="share"><!-- Share --></span>
+      </a>
+      <!-- end: share -->
+
+      <!-- start: help -->
+      <a class="sidebar-btn btn-editor-help">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
+        <span data-label="help"><!-- Help --></span>
+      </a>
+      <!-- end: help -->
+
       <!-- start: display colors -->
       <a class="sidebar-btn btn-editor-colors">
         <label for="toggle-colors" class="toggle">
@@ -169,22 +183,22 @@
       </a>
       <!-- end: display colors -->
 
-      <!-- start: spellcheck -->
-      <a class="sidebar-btn btn-editor-spellcheck">
-        <label for="toggle-spellcheck" class="toggle">
+      <!-- start: bionic reading -->
+      <a class="sidebar-btn btn-editor-bionic">
+        <label for="toggle-bionic" class="toggle">
           <!-- toggle -->
           <div class="relative">
-            <input type="checkbox" id="toggle-spellcheck" class="chx-toggle-spellcheck sr-only">
+            <input type="checkbox" id="toggle-bionic" class="chx-toggle-bionic sr-only">
             <div class="toggle-line"></div>
             <div class="toggle-dot"></div>
           </div>
           <!-- label -->
           <div class="toggle-label">
-            <span data-label="spelling"><!-- Spellcheck --></span>
+            <span data-label="bionic"><!-- Bionic reading --></span>
           </div>
         </label>
       </a>
-      <!-- end: spellcheck -->
+      <!-- end: bionic reading -->
 
       <!-- start: locale -->
       <div class="sidebar-locale">
@@ -273,5 +287,16 @@
   </div>
   <!-- end: image for cropping -->
 </div>
+
+<!-- start: help modal -->
+<div id="help-modal" class="modal-overlay" style="display:none">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <h2 class="modal-title" id="help-title"><!-- title --></h2>
+    <p class="modal-intro" id="help-intro"><!-- intro --></p>
+    <ul class="modal-list" id="help-list"><!-- items --></ul>
+    <button id="help-close" class="btn primary" data-label="cancel">Close</button>
+  </div>
+</div>
+<!-- end: help modal -->
 </body>
 </html>

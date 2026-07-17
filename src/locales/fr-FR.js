@@ -13,11 +13,25 @@ export default {
         "syllabes": "Syllabes",
         "print": "Imprimer",
         "colors": "Couleurs",
-        "spelling": "Souligner les fautes",
+        "bionic": "Lecture bionique",
+        "share": "Partager",
+        "help": "Aide",
         "contribute": "Aider le projet",
         "upload": "Importer une photo",
         "crop": "Recadrer",
         "cancel": "Annuler",
+    },
+    "help": {
+        "title": "Comment ça marche ?",
+        "close": "Fermer",
+        "intro": "Captain Dys aide les enfants dyslexiques à lire et écrire plus facilement. Voici à quoi servent les boutons :",
+        "items": [
+            {"label": "Couleurs", "text": "Met en évidence les groupes de lettres et sons courants pour mieux repérer les difficultés."},
+            {"label": "Lecture bionique", "text": "Met en gras le début de chaque mot pour donner des points d'appui à l'œil et guider la lecture."},
+            {"label": "Importer une photo", "text": "Prends ou choisis une photo d'un texte pour le transformer en texte modifiable."},
+            {"label": "Écouter / Parler", "text": "Fait lire le texte à voix haute, ou écris le texte avec ta voix."},
+            {"label": "Partager", "text": "Envoie le texte actuel à quelqu'un (le texte est conservé dans le lien)."},
+        ]
     },
     "editor": {
         "welcome": "Bonjour ! Écris ou colle ton texte ici.",

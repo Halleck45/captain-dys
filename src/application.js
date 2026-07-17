@@ -3,6 +3,8 @@ import text2speech from "./text2speech";
 import speech2ext from "./speech2ext";
 import Layout from "./layout";
 import Image2Text from "./image2text";
+import help from "./help";
+import share from "./share";
 
 export default {
     init: () => {
@@ -17,14 +19,20 @@ export default {
             elem.parentNode.removeChild(elem);
         }
 
-        // get locale from URL
-        let locale = window.location.search.replace('?locale=', '');
-        if (!locale) {
-            locale = 'fr-FR';
-        }
+        // get locale (and optional shared text) from URL
+        const params = new URLSearchParams(window.location.search);
+        let locale = params.get('locale') || 'fr-FR';
+        const sharedText = params.get('text');
 
         // Initializing editor
         editor.init("#editor", '#toolbar-container', locale);
+
+        // If a shared text was passed in the URL, load it into the editor
+        if (sharedText) {
+            editor.setText(sharedText);
+            editor.applyColors();
+        }
+
         text2speech.init('.btn-editor-speak', editor);
         speech2ext.init(
             document.getElementById('btn-editor-listen'),
@@ -38,5 +46,9 @@ export default {
         // Initializing image2text
         const image2text = new Image2Text(editor);
         image2text.init('#photo', locale);
+
+        // Help modal and share button
+        help.init(locale);
+        share.init(editor, locale);
     }
 }

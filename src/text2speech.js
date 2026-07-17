@@ -22,15 +22,14 @@ const text2speech = {
             });
         });
 
-        document.querySelectorAll('.chx-toggle-spellcheck').forEach(e => {
-            e.addEventListener('change', (event) => {
-                editor.quill.root.setAttribute('spellcheck', event.target.checked);
-                editor.quill.focus();
-            });
-        });
         document.querySelectorAll('.chx-toggle-colors').forEach(e => {
             e.addEventListener('change', (event) => {
                 editor.toggleColor(event.target.checked);
+            });
+        });
+        document.querySelectorAll('.chx-toggle-bionic').forEach(e => {
+            e.addEventListener('change', (event) => {
+                editor.toggleBionic(event.target.checked);
             });
         });
 

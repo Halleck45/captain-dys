@@ -4,6 +4,7 @@ import locales from './locales/locales';
 const editor = {
   quill: null,
   colorsAreEnabled: true,
+  bionicIsEnabled: false,
   translations: {},
   init: (selector, toolbarSelector, locale) => {
 
@@ -62,41 +63,81 @@ const editor = {
     let quill = editor.quill;
     quill.formatText(0, quill.getText().length, {color: '#333'});
 
-    if (!editor.colorsAreEnabled) {
+    if (editor.colorsAreEnabled) {
+      // Color of letters
+      const toColor = editor.translations.editor.colors;
+
+      let text = quill.getText(); // remember to not trim text from break lines, otherwise positions are false
+
+      if (text.length > 0) {
+        let pattern, indice;
+
+        for (pattern of toColor) {
+          let indices = editor.getIndicesOf(pattern.regex, text);
+
+          if (0 == indices.length) {
+            continue;
+          }
+
+          for (indice of indices) {
+            let delta = quill.formatText(indice.start, indice.len, {
+              color: pattern.color
+            }, true);
+
+            quill.removeFormat(indice.end, 0);
+          }
+        }
+      }
+    }
+
+    // Bionic reading is a separate visual layer (bold), always kept in sync.
+    editor.applyBionic();
+  },
+
+  toggleColor: (enabled) => {
+    editor.colorsAreEnabled = enabled;
+    editor.applyColors();
+  },
+
+  // Bionic reading: bold the beginning of each word to create fixation points
+  // that guide the eye. Language-agnostic, so it works for every locale.
+  // When disabled we leave `bold` untouched so the toolbar Bold button keeps
+  // working — the bold layer is only cleared once, when the option is turned off.
+  applyBionic: () => {
+    if (!editor.bionicIsEnabled) {
       return;
     }
 
-    // Color of letters
-    const toColor = editor.translations.editor.colors;
-
-    let text = quill.getText(); // remember to not trim text from break lines, otherwise positions are false
+    const quill = editor.quill;
+    const text = quill.getText();
 
     if (text.length === 0) {
       return;
     }
 
-    let pattern, indice;
+    // Match words (letters/digits, incl. accents) and bold their first half.
+    const regex = /[\p{L}\p{N}]+/gu;
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      const word = match[0];
+      const start = match.index;
+      // Short words: only the first letter. Longer words: about half.
+      const fixation = word.length <= 3 ? 1 : Math.ceil(word.length / 2);
 
-
-    for (pattern of toColor) {
-      let indices = editor.getIndicesOf(pattern.regex, text);
-
-      if (0 == indices.length) {
-        continue;
-      }
-
-      for (indice of indices) {
-        let delta = quill.formatText(indice.start, indice.len, {
-          color: pattern.color
-        }, true);
-
-        quill.removeFormat(indice.end, 0);
-      }
+      quill.formatText(start, fixation, {bold: true}, true);
+      quill.formatText(start + fixation, word.length - fixation, {bold: false}, true);
     }
   },
 
-  toggleColor: (enabled) => {
-    editor.colorsAreEnabled = enabled;
+  toggleBionic: (enabled) => {
+    editor.bionicIsEnabled = enabled;
+
+    // When turning bionic off, clear the bold layer it added (once).
+    if (!enabled) {
+      const quill = editor.quill;
+      quill.formatText(0, quill.getText().length, {bold: false}, true);
+    }
+
     editor.applyColors();
   },
 
