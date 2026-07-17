@@ -1,7 +1,6 @@
 import Tesseract from 'tesseract.js';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
-import EXIF from "exif-js";
 
 
 class Image2Text {
@@ -83,34 +82,33 @@ class Image2Text {
             return;
         }
 
+        // Destroy any previous cropper to avoid stacking instances on repeated uploads
+        if (this.cropper) {
+            this.cropper.destroy();
+            this.cropper = null;
+        }
+
         // put image in #image in order to crop it
         const image = document.getElementById('image');
         image.src = URL.createObjectURL(files[0]);
 
-        // Get width and height of image files[0]
-        image.onload = function() {
-            const width = this.width;
-            const height = this.height;
+        // Once the image is loaded, show the crop UI and let Cropper.js handle
+        // EXIF orientation on its own (checkOrientation is enabled by default).
+        //
+        // We intentionally do NOT rotate the image manually anymore: mobile
+        // browsers already auto-apply EXIF orientation to the <img>, and a
+        // manual CSS `transform: rotate()` only rotates the on-screen preview,
+        // not the pixels sent to the OCR. Combined, they rotated photos the
+        // wrong way on Android and broke text recognition.
+        image.onload = () => {
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.style.display = 'block';
 
-            // Check orientation in EXIF metadatas of files[0]
-            EXIF.getData(this, () => {
-                const exifInfos = EXIF.getAllTags(this);
-                const orientation = exifInfos.Orientation;
-
-                // should I rotate ?
-                const exifOrientation = orientation === 6 ? 90 : orientation === 8 ? -90 : orientation === 3 ? 180 : 0;
-
-                // if yes, rotate
-                if (exifOrientation) {
-                    this.style.transform = `rotate(${exifOrientation}deg)`;
-                }
-
-                // display image
-                const imageContainer = document.getElementById('image-container');
-                imageContainer.style.display = 'block';
-                this.cropper = new Cropper(image, {});
+            this.cropper = new Cropper(image, {
+                viewMode: 1,
+                autoCropArea: 1,
             });
-        }
+        };
     }
 }
 
